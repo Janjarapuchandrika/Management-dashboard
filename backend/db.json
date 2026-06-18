@@ -1,0 +1,35 @@
+{
+  "records": [
+    {
+      "id": "1",
+      "name": "Employee Record",
+      "category": "HR",
+      "status": "Active"
+    },
+    {
+      "id": "2",
+      "name": "Finance Report",
+      "category": "Finance",
+      "status": "Completed"
+    },
+    {
+      "id": "3",
+      "name": "Project Data",
+      "category": "IT",
+      "status": "Pending"
+    },
+    {
+      "name": "chandrika",
+      "category": "IT",
+      "status": "Active",
+      "id": "OR2TcCrV4SA"
+    },
+    {
+      "name": "Bhagi",
+      "category": "Marketing",
+      "status": "Active",
+      "id": "kz5CA-TYjNI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

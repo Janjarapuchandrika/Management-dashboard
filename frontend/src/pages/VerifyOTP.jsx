@@ -6,48 +6,97 @@ const VerifyOTP = () => {
   const navigate = useNavigate();
 
   const verifyOTP = () => {
-    const storedOTP =
-      localStorage.getItem("otp");
+    const storedOTP = localStorage.getItem("otp");
 
     if (otp === storedOTP) {
-      alert("Registration Successful");
+      alert("Registration Successful ✅");
       navigate("/login");
     } else {
-      alert("Invalid OTP");
+      alert("Invalid OTP ❌");
     }
   };
 
   return (
-    <div className="container mt-5">
-      <div
-        className="card shadow mx-auto"
-        style={{ maxWidth: "450px" }}
-      >
-        <div className="card-body">
-          <h2 className="text-center mb-4">
-            Verify OTP
-          </h2>
+    <div style={styles.page}>
 
-          <input
-            type="text"
-            className="form-control mb-3"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) =>
-              setOtp(e.target.value)
-            }
-          />
+      <div style={styles.card}>
 
-          <button
-            className="btn btn-primary w-100"
-            onClick={verifyOTP}
-          >
-            Verify
-          </button>
-        </div>
+        <h2 style={styles.title}>🔐 Verify OTP</h2>
+
+        <p style={styles.subtitle}>
+          Enter the OTP sent during registration
+        </p>
+
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          style={styles.input}
+        />
+
+        <button onClick={verifyOTP} style={styles.button}>
+          Verify OTP
+        </button>
+
       </div>
+
     </div>
   );
+};
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f4f6f9",
+    fontFamily: "Segoe UI"
+  },
+
+  card: {
+    width: "100%",
+    maxWidth: "400px",
+    background: "#fff",
+    padding: "25px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
+    textAlign: "center"
+  },
+
+  title: {
+    marginBottom: "10px",
+    color: "#1e3a8a"
+  },
+
+  subtitle: {
+    fontSize: "14px",
+    color: "#6b7280",
+    marginBottom: "20px"
+  },
+
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "15px",
+    borderRadius: "6px",
+    border: "1px solid #d1d5db",
+    outline: "none",
+    textAlign: "center",
+    letterSpacing: "3px",
+    fontSize: "16px"
+  },
+
+  button: {
+    width: "100%",
+    padding: "10px",
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  }
 };
 
 export default VerifyOTP;

@@ -12,12 +12,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const registeredUser = JSON.parse(
-      localStorage.getItem("registerUser")
-    );
+    const registeredUser = JSON.parse(localStorage.getItem("registerUser"));
 
     if (!registeredUser) {
-      alert("Please Register First");
+      alert("Please register first");
       navigate("/register");
       return;
     }
@@ -26,100 +24,111 @@ const Login = () => {
       user.email === registeredUser.email &&
       user.password === registeredUser.password
     ) {
-      localStorage.setItem(
-        "isLoggedIn",
-        "true"
-      );
-
-      alert("Login Successful");
-
+      localStorage.setItem("isLoggedIn", "true");
+      alert("Login Successful ✅");
       navigate("/dashboard");
-
-      window.location.reload();
     } else {
-      alert("Invalid Email or Password");
+      alert("Invalid email or password ❌");
     }
   };
 
   return (
-    <div className="container mt-5">
-      <div
-        className="card shadow mx-auto border-0"
-        style={{ maxWidth: "450px" }}
-      >
-        <div className="card-body p-4">
+    <div style={styles.page}>
 
-          <h2 className="text-center mb-4">
-            🔐 Login
-          </h2>
+      <div style={styles.card}>
 
-          <form onSubmit={handleSubmit}>
+        <h2 style={styles.title}>🔐 Login</h2>
 
-            <div className="mb-3">
-              <label className="form-label">
-                Email
-              </label>
+        <form onSubmit={handleSubmit}>
 
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Enter Email"
-                value={user.email}
-                onChange={(e) =>
-                  setUser({
-                    ...user,
-                    email: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
+          <input
+            type="email"
+            placeholder="Enter email"
+            value={user.email}
+            onChange={(e) =>
+              setUser({ ...user, email: e.target.value })
+            }
+            style={styles.input}
+            required
+          />
 
-            <div className="mb-3">
-              <label className="form-label">
-                Password
-              </label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={user.password}
+            onChange={(e) =>
+              setUser({ ...user, password: e.target.value })
+            }
+            style={styles.input}
+            required
+          />
 
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter Password"
-                value={user.password}
-                onChange={(e) =>
-                  setUser({
-                    ...user,
-                    password: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
+          <button type="submit" style={styles.button}>
+            Login
+          </button>
 
-            <button
-              type="submit"
-              className="btn btn-primary w-100"
-            >
-              Login
-            </button>
+        </form>
 
-          </form>
+        <p style={styles.text}>
+          Don't have an account?{" "}
+          <Link to="/register">Register</Link>
+        </p>
 
-          <hr />
-
-          <p className="text-center">
-            Don't have an account?
-            <Link
-              to="/register"
-              className="ms-1"
-            >
-              Register
-            </Link>
-          </p>
-
-        </div>
       </div>
+
     </div>
   );
+};
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f4f6f9",
+    fontFamily: "Segoe UI"
+  },
+
+  card: {
+    width: "100%",
+    maxWidth: "400px",
+    background: "#fff",
+    padding: "25px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+  },
+
+  title: {
+    textAlign: "center",
+    marginBottom: "20px",
+    color: "#1e3a8a"
+  },
+
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "12px",
+    borderRadius: "6px",
+    border: "1px solid #d1d5db",
+    outline: "none"
+  },
+
+  button: {
+    width: "100%",
+    padding: "10px",
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  },
+
+  text: {
+    textAlign: "center",
+    marginTop: "15px",
+    fontSize: "14px"
+  }
 };
 
 export default Login;

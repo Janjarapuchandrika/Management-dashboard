@@ -1,15 +1,33 @@
 const SearchBar = ({ search, setSearch }) => {
   return (
-    <div className="mb-3">
+    <div style={styles.wrapper}>
+
       <input
         type="text"
-        className="form-control"
-        placeholder="Search by Name..."
+        placeholder="Search by name..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        style={styles.input}
       />
+
     </div>
   );
+};
+
+const styles = {
+  wrapper: {
+    marginBottom: "15px"
+  },
+
+  input: {
+    width: "100%",
+    maxWidth: "300px",
+    padding: "10px",
+    borderRadius: "6px",
+    border: "1px solid #d1d5db",
+    outline: "none",
+    fontSize: "14px"
+  }
 };
 
 export default SearchBar;

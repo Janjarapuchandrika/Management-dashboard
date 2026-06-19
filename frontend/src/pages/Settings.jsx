@@ -4,55 +4,46 @@ import { useNavigate } from "react-router-dom";
 const Settings = () => {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-  });
-
+  const [user, setUser] = useState({ name: "", email: "" });
   const [theme, setTheme] = useState("light");
 
-  // Load saved data
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("registerUser"));
-    if (savedUser) {
-      setUser(savedUser);
-    }
+    if (savedUser) setUser(savedUser);
 
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
   }, []);
 
-  // Save profile changes
   const saveProfile = () => {
     localStorage.setItem("registerUser", JSON.stringify(user));
-    alert("Profile updated successfully ✅");
+    alert("Profile updated ✅");
   };
 
-  // Toggle theme
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
 
-    if (newTheme === "dark") {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
+    document.body.style.background =
+      newTheme === "dark" ? "#111" : "#f5f6fa";
+
+    document.body.style.color =
+      newTheme === "dark" ? "#fff" : "#000";
   };
 
   return (
-    <div className="container mt-5">
-      <div className="card shadow p-4 mx-auto" style={{ maxWidth: "600px" }}>
+    <div style={styles.page}>
 
-        <h3 className="mb-4">⚙ Settings</h3>
+      <div style={styles.card}>
 
-        {/* PROFILE SECTION */}
-        <h5>Profile</h5>
+        <h2 style={styles.title}>⚙ Settings</h2>
+
+        {/* PROFILE */}
+        <h4>Profile</h4>
 
         <input
-          type="text"
-          className="form-control mb-3"
+          style={styles.input}
           placeholder="Name"
           value={user.name}
           onChange={(e) =>
@@ -61,8 +52,7 @@ const Settings = () => {
         />
 
         <input
-          type="email"
-          className="form-control mb-3"
+          style={styles.input}
           placeholder="Email"
           value={user.email}
           onChange={(e) =>
@@ -70,42 +60,99 @@ const Settings = () => {
           }
         />
 
-        <button
-          className="btn btn-primary mb-4"
-          onClick={saveProfile}
-        >
+        <button style={styles.button} onClick={saveProfile}>
           Save Profile
         </button>
 
         <hr />
 
-        {/* THEME SECTION */}
-        <h5>Appearance</h5>
+        {/* THEME */}
+        <h4>Appearance</h4>
 
-        <button
-          className={`btn ${
-            theme === "dark" ? "btn-light" : "btn-dark"
-          } mt-2`}
-          onClick={toggleTheme}
-        >
+        <button style={styles.themeBtn} onClick={toggleTheme}>
           {theme === "dark"
-            ? "Switch to Light Mode ☀️"
-            : "Switch to Dark Mode 🌙"}
+            ? "Switch to Light ☀️"
+            : "Switch to Dark 🌙"}
         </button>
 
         <hr />
 
-        {/* BACK BUTTON */}
+        {/* BACK */}
         <button
-          className="btn btn-secondary mt-3"
-          onClick={() => navigate("/")}
+          style={styles.backBtn}
+          onClick={() => navigate("/dashboard")}
         >
-          ← Back to Dashboard
+          ← Back
         </button>
 
       </div>
     </div>
   );
+};
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f5f6fa",
+    fontFamily: "Arial",
+    padding: "20px"
+  },
+
+  card: {
+    width: "100%",
+    maxWidth: "450px",
+    background: "#fff",
+    padding: "25px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.1)"
+  },
+
+  title: {
+    marginBottom: "20px",
+    textAlign: "center"
+  },
+
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "10px",
+    border: "1px solid #ddd",
+    borderRadius: "6px",
+    outline: "none"
+  },
+
+  button: {
+    width: "100%",
+    padding: "10px",
+    background: "#4f46e5",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginBottom: "10px"
+  },
+
+  themeBtn: {
+    width: "100%",
+    padding: "10px",
+    background: "#111",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  },
+
+  backBtn: {
+    width: "100%",
+    padding: "10px",
+    background: "#e5e7eb",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  }
 };
 
 export default Settings;

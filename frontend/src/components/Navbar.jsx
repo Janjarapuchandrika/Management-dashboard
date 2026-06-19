@@ -3,58 +3,85 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
   const logout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("registerUser");
     navigate("/login");
-    window.location.reload();
   };
 
-  const isLoggedIn =
-    localStorage.getItem("isLoggedIn") === "true";
-
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container">
+    <div style={styles.navbar}>
 
-        {/* BRAND */}
-        <Link className="navbar-brand" to="/">
-          Dashboard Pro
-        </Link>
+      {/* LEFT - BRAND */}
+      <div style={styles.brand} onClick={() => navigate("/")}>
+        🎓 College ERP
+      </div>
 
-        {/* RIGHT SIDE BUTTONS */}
-        <div className="ms-auto d-flex gap-2">
+      {/* RIGHT MENU */}
+      <div style={styles.menu}>
 
-          {/* SETTINGS BUTTON */}
+        <button
+          style={styles.btn}
+          onClick={() => navigate("/settings")}
+        >
+          ⚙ Settings
+        </button>
+
+        {!isLoggedIn ? (
           <button
-            className="btn btn-warning"
-            onClick={() => navigate("/settings")}
+            style={{ ...styles.btn, background: "#16a34a" }}
+            onClick={() => navigate("/login")}
           >
-            ⚙ Settings
+            Login
           </button>
-
-          {/* LOGIN / LOGOUT */}
-          {!isLoggedIn ? (
-            <button
-              className="btn btn-success"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-          ) : (
-            <button
-              className="btn btn-danger"
-              onClick={logout}
-            >
-              Logout
-            </button>
-          )}
-
-        </div>
+        ) : (
+          <button
+            style={{ ...styles.btn, background: "#dc2626" }}
+            onClick={logout}
+          >
+            Logout
+          </button>
+        )}
 
       </div>
-    </nav>
+
+    </div>
   );
+};
+
+const styles = {
+  navbar: {
+    height: "60px",
+    background: "#1e3a8a",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "0 20px",
+    color: "white"
+  },
+
+  brand: {
+    fontSize: "18px",
+    fontWeight: "bold",
+    cursor: "pointer"
+  },
+
+  menu: {
+    display: "flex",
+    gap: "10px"
+  },
+
+  btn: {
+    padding: "8px 12px",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    background: "#f59e0b",
+    color: "white",
+    fontWeight: "500"
+  }
 };
 
 export default Navbar;

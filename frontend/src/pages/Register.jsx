@@ -13,15 +13,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const otp = Math.floor(
-      100000 + Math.random() * 900000
-    );
+    const otp = Math.floor(100000 + Math.random() * 900000);
 
-    localStorage.setItem(
-      "registerUser",
-      JSON.stringify(user)
-    );
-
+    localStorage.setItem("registerUser", JSON.stringify(user));
     localStorage.setItem("otp", otp);
 
     alert(`Demo OTP: ${otp}`);
@@ -30,69 +24,110 @@ const Register = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div
-        className="card shadow mx-auto"
-        style={{ maxWidth: "500px" }}
-      >
-        <div className="card-body">
-          <h2 className="text-center mb-4">
+    <div style={styles.page}>
+
+      <div style={styles.card}>
+
+        <h2 style={styles.title}>📝 Register</h2>
+
+        <form onSubmit={handleSubmit}>
+
+          <input
+            type="text"
+            placeholder="Enter name"
+            onChange={(e) =>
+              setUser({ ...user, name: e.target.value })
+            }
+            style={styles.input}
+            required
+          />
+
+          <input
+            type="email"
+            placeholder="Enter email"
+            onChange={(e) =>
+              setUser({ ...user, email: e.target.value })
+            }
+            style={styles.input}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder="Enter password"
+            onChange={(e) =>
+              setUser({ ...user, password: e.target.value })
+            }
+            style={styles.input}
+            required
+          />
+
+          <button type="submit" style={styles.button}>
             Register
-          </h2>
+          </button>
 
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              className="form-control mb-3"
-              placeholder="Name"
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  name: e.target.value,
-                })
-              }
-              required
-            />
+        </form>
 
-            <input
-              type="email"
-              className="form-control mb-3"
-              placeholder="Email"
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  email: e.target.value,
-                })
-              }
-              required
-            />
+        <p style={styles.text}>
+          Already have an account?{" "}
+          <Link to="/login">Login</Link>
+        </p>
 
-            <input
-              type="password"
-              className="form-control mb-3"
-              placeholder="Password"
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  password: e.target.value,
-                })
-              }
-              required
-            />
-
-            <button className="btn btn-success w-100">
-              Register
-            </button>
-          </form>
-
-          <p className="text-center mt-3">
-            Already have an account?
-            <Link to="/login"> Login</Link>
-          </p>
-        </div>
       </div>
+
     </div>
   );
+};
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#f4f6f9",
+    fontFamily: "Segoe UI"
+  },
+
+  card: {
+    width: "100%",
+    maxWidth: "450px",
+    background: "#fff",
+    padding: "25px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+  },
+
+  title: {
+    textAlign: "center",
+    marginBottom: "20px",
+    color: "#1e3a8a"
+  },
+
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "12px",
+    borderRadius: "6px",
+    border: "1px solid #d1d5db",
+    outline: "none"
+  },
+
+  button: {
+    width: "100%",
+    padding: "10px",
+    background: "#16a34a",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  },
+
+  text: {
+    textAlign: "center",
+    marginTop: "15px",
+    fontSize: "14px"
+  }
 };
 
 export default Register;

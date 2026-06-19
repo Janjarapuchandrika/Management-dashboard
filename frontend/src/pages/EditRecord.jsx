@@ -16,53 +16,105 @@ const EditRecord = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Record Updated Successfully");
+    alert("Record Updated Successfully ✅");
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Edit Record</h2>
+    <div style={styles.page}>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          className="form-control mb-3"
-          value={formData.name}
-          onChange={handleChange}
-        />
+      <div style={styles.card}>
 
-        <select
-          name="category"
-          className="form-select mb-3"
-          value={formData.category}
-          onChange={handleChange}
-        >
-          <option value="">Select Category</option>
-          <option value="HR">HR</option>
-          <option value="IT">IT</option>
-          <option value="Finance">Finance</option>
-        </select>
+        <h2 style={styles.title}>✏ Edit Record</h2>
 
-        <select
-          name="status"
-          className="form-select mb-3"
-          value={formData.status}
-          onChange={handleChange}
-        >
-          <option value="">Select Status</option>
-          <option value="Active">Active</option>
-          <option value="Completed">Completed</option>
-          <option value="Pending">Pending</option>
-        </select>
+        <form onSubmit={handleSubmit}>
 
-        <button className="btn btn-warning">
-          Update Record
-        </button>
-      </form>
+          <input
+            name="name"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleChange}
+            style={styles.input}
+          />
+
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            style={styles.input}
+          >
+            <option value="">Select Category</option>
+            <option value="HR">HR</option>
+            <option value="IT">IT</option>
+            <option value="Finance">Finance</option>
+          </select>
+
+          <select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            style={styles.input}
+          >
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+          </select>
+
+          <button type="submit" style={styles.button}>
+            Update Record
+          </button>
+
+        </form>
+
+      </div>
+
     </div>
   );
+};
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    padding: "40px",
+    background: "#f4f6f9",
+    fontFamily: "Arial"
+  },
+
+  card: {
+    width: "100%",
+    maxWidth: "500px",
+    background: "#fff",
+    padding: "20px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+  },
+
+  title: {
+    marginBottom: "15px",
+    color: "#1e3a8a"
+  },
+
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "12px",
+    borderRadius: "6px",
+    border: "1px solid #d1d5db",
+    outline: "none"
+  },
+
+  button: {
+    width: "100%",
+    padding: "10px",
+    background: "#f59e0b",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer"
+  }
 };
 
 export default EditRecord;
